@@ -1,233 +1,353 @@
-# Анализ Взаимного Расположения Прямых на Плоскости
+# Line Relationship Analyzer
 
-## Описание проекта
+> A modern, interactive tool for analyzing geometric relationships between lines in 2D space
 
-Данный проект представляет собой программу для анализа взаимного расположения прямых линий на плоскости в рамках курса аналитической геометрии. Программа позволяет анализировать отношения между прямыми (параллельность, пересечение, совпадение, перпендикулярность) и визуализировать результаты.
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GUI: CustomTkinter](https://img.shields.io/badge/GUI-CustomTkinter-green.svg)](https://github.com/TomSchimansky/CustomTkinter)
 
-## Структура проекта
+**Created for Analytic Geometry Course**  
+Astana IT University | October 2025
 
-### Основные файлы
+---
 
-```
-📁 Midterm/
-├── 📄 main.py              # Главный файл - точка входа в программу
-├── 📄 geometry_calc.py     # Модуль геометрических вычислений
-├── 📄 gui.py               # Графический интерфейс пользователя
-├── 📄 visualization.py     # Модуль визуализации графиков
-├── 📄 test_cases.py        # Тестовые случаи для проверки функций
-├── 📄 Midterm_Task.pdf     # Описание задания
-├── 📁 images/              # Папка для сохранения графиков
-│   └── 📄 line_analysis_*.png
-└── 📁 __pycache__/         # Кэш Python файлов
-```
+## What Does This Tool Do?
 
-## Модули и их функциональность
+Ever wondered whether two lines intersect, run parallel, or are actually the same line? This application does exactly that! 
 
-### 1. `main.py` - Главный модуль
-**Назначение:** Точка входа в программу, управление режимами работы
+Given lines in the general form `Ax + By + C = 0`, the analyzer will:
+-  Determine if they **intersect**, are **parallel**, or **coincide**
+-  Calculate exact **intersection points** (when applicable)
+-  Measure the **angle** between intersecting lines
+-  Show a beautiful **visual graph** of your lines
 
-**Основные функции:**
-- `main()` - выбор режима работы (GUI/консоль/пример)
-- `run_console()` - запуск консольной версии
-- `run_gui()` - запуск графического интерфейса
-- `run_example()` - демонстрация примера из задания
+Perfect for students, teachers, and anyone working with linear equations!
 
-**Возможности:**
-- Автоматическое определение доступности библиотек (tkinter, matplotlib)
-- Выбор между GUI и консольным режимом
-- Демонстрация примера с тремя прямыми
+---
 
-### 2. `geometry_calc.py` - Модуль вычислений
-**Назначение:** Содержит все математические функции для работы с прямыми
+## Features
 
-**Ключевые функции:**
+### Core Functionality
+-  **Relationship Detection**: Instantly identifies whether lines intersect, are parallel, or coincide
+-  **Intersection Points**: Calculates exact coordinates using Cramer's Rule
+-  **Angle Calculation**: Measures angles between lines (0° to 90°)
+-  **Special Cases**: Handles vertical lines (B = 0) and horizontal lines (A = 0)
 
-#### Базовые проверки:
-- `is_valid_line(A, B, C)` - проверка корректности уравнения прямой
-- `get_slope(A, B)` - вычисление углового коэффициента
+### User Experience
+-  **Modern GUI**: Built with CustomTkinter for a sleek, professional look
+-  **Live Visualization**: See your lines plotted in real-time with matplotlib
+-  **Random Generation**: Quickly fill coefficients with random values for testing
+-  **Detailed Steps**: View complete mathematical solutions with step-by-step breakdowns
+-  **Source Code Access**: Built-in button to view project source and documentation
 
-#### Анализ взаимного расположения:
-- `are_parallel(A1, B1, C1, A2, B2, C2)` - проверка параллельности
-- `are_coincident(A1, B1, C1, A2, B2, C2)` - проверка совпадения
-- `are_perpendicular(A1, B1, A2, B2)` - проверка перпендикулярности
+### Developer Friendly
+-  **25 Unit Tests**: Comprehensive test coverage ensures accuracy
+-  **One-Click Build**: Create standalone `.exe` files with PyInstaller
+-  **Well Documented**: Clear code comments and full documentation
 
-#### Вычисления:
-- `find_intersection(A1, B1, C1, A2, B2, C2)` - поиск точки пересечения
-- `calculate_angle(A1, B1, A2, B2)` - вычисление угла между прямыми
-- `get_line_relationship(A1, B1, C1, A2, B2, C2)` - полный анализ отношений
+---
 
-#### Интерфейс:
-- `input_lines()` - ввод данных с консоли
-- `analyze_all_pairs(lines)` - анализ всех пар прямых
+## Quick Start
 
-### 3. `gui.py` - Графический интерфейс
-**Назначение:** Создание удобного графического интерфейса для работы с программой
+### Option 1: Run from Source (Recommended for Developers)
 
-**Класс `LineAnalyzerGUI`:**
-
-#### Основные компоненты:
-- **Панель ввода:** поля для коэффициентов прямых (A, B, C)
-- **Кнопки управления:** добавление/удаление прямых, загрузка примера
-- **Область результатов:** текстовый вывод анализа
-- **График:** визуализация прямых и точек пересечения
-
-#### Ключевые методы:
-- `add_line_input()` / `remove_line_input()` - управление количеством прямых
-- `load_example()` - загрузка примера из задания
-- `analyze_lines()` - запуск анализа введенных прямых
-- `plot_lines_on_canvas()` - построение графика
-- `save_results()` / `save_plot()` - сохранение результатов
-
-#### Особенности:
-- Динамическое добавление полей ввода
-- Встроенная валидация данных
-- Интерактивный график с подписями точек
-- Возможность сохранения результатов и графиков
-
-### 4. `visualization.py` - Модуль визуализации
-**Назначение:** Создание графических представлений прямых и их взаимного расположения
-
-**Основные функции:**
-
-#### Настройка графиков:
-- `setup_plot_style()` - настройка стиля matplotlib
-- `calculate_plot_bounds(lines)` - автоматическое определение границ графика
-- `get_line_color_and_style(index)` - назначение цветов и стилей
-
-#### Построение графиков:
-- `plot_lines(lines, results)` - основная функция визуализации множества прямых
-- `plot_line_pair(line1, line2)` - специализированная визуализация двух прямых
-- `create_analysis_summary(lines, results)` - создание текстового резюме
-
-#### Утилиты:
-- `save_plot_to_images(filename)` - сохранение графиков в папку images/
-- Автоматическое создание папки для графиков
-- Поддержка различных форматов сохранения
-
-### 5. `test_cases.py` - Тестирование
-**Назначение:** Набор тестовых случаев для проверки корректности работы функций
-
-**Тестовые сценарии:**
-1. **Вертикальные прямые** - проверка обработки прямых вида x = const
-2. **Совпадающие прямые** - тестирование определения одинаковых прямых
-3. **Параллельные прямые** - проверка непересекающихся прямых
-4. **Перпендикулярные прямые** - тестирование прямых под углом 90°
-
-## Математическая основа
-
-### Уравнение прямой
-Программа работает с общим уравнением прямой: **Ax + By + C = 0**
-
-### Алгоритмы анализа
-
-#### 1. Проверка параллельности
-Прямые параллельны, если их направляющие векторы пропорциональны:
-```
-A₁ × B₂ - A₂ × B₁ = 0
-```
-
-#### 2. Проверка совпадения
-Прямые совпадают, если они параллельны и все коэффициенты пропорциональны
-
-#### 3. Поиск пересечения
-Решение системы уравнений методом Крамера:
-```
-A₁x + B₁y + C₁ = 0
-A₂x + B₂y + C₂ = 0
-```
-
-#### 4. Вычисление угла
-Угол между прямыми через скалярное произведение направляющих векторов:
-```
-cos α = |A₁A₂ + B₁B₂| / (√(A₁² + B₁²) × √(A₂² + B₂²))
-```
-
-## Установка и запуск
-
-### Требования
-- Python 3.6+
-- tkinter (обычно входит в стандартную поставку Python)
-- matplotlib (для графиков)
-- numpy (для вычислений)
-
-### Установка зависимостей
+**1. Clone the repository:**
 ```bash
-pip install matplotlib numpy
+git clone https://github.com/NurdauletSovetkhan/Analytic-Geometry-Midterm.git
+cd Analytic-Geometry-Midterm
 ```
 
-### Запуск программы
+**2. Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+**3. Launch the application:**
 ```bash
 python main.py
 ```
 
-### Режимы работы
-1. **GUI режим (рекомендуется)** - полнофункциональный графический интерфейс
-2. **Консольный режим** - ввод данных через командную строку
-3. **Пример из задания** - демонстрация работы на конкретном примере
+That's it! The GUI will open and you're ready to analyze lines. 🎉
 
-## Пример использования
+### Option 2: Use Standalone Executable (For End Users)
 
-### Пример из задания
-Программа включает предустановленный пример с тремя прямыми:
-- l₁: x + y - 2 = 0
-- l₂: x - y = 0
-- l₃: 2x - 3y + 5 = 0
-
-### Результат анализа
-```
-Анализ пары l1 и l2:
-Отношение: Прямые пересекаются
-Точка пересечения: (1.000, 1.000)
-Угол между прямыми: 90.000°
-Прямые перпендикулярны
-
-Анализ пары l1 и l3:
-Отношение: Прямые пересекаются
-Точка пересечения: (1.400, 0.600)
-Угол между прямыми: 71.565°
+**1. Build the .exe file:**
+```bash
+python build_exe.py
 ```
 
-## Функциональные особенности
+**2. Find your executable:**
+```
+dist/LineAnalyzer.exe
+```
 
-### GUI версия
-- ✅ Интуитивный интерфейс
-- ✅ Динамическое добавление прямых
-- ✅ Встроенная визуализация
-- ✅ Сохранение результатов
-- ✅ Валидация ввода
+**3. Double-click to run!**
 
-### Консольная версия
-- ✅ Пошаговый ввод данных
-- ✅ Детальный анализ
-- ✅ Опциональная визуализация
-
-### Визуализация
-- ✅ Автоматическое масштабирование
-- ✅ Цветовая кодировка прямых
-- ✅ Подпись точек пересечения
-- ✅ Координатная сетка
-- ✅ Легенда с уравнениями
-
-## Обработка ошибок
-
-Программа включает обработку различных ошибочных ситуаций:
-- Некорректные коэффициенты (A = B = 0)
-- Некорректный ввод данных
-- Отсутствие необходимых библиотек
-- Ошибки при сохранении файлов
-
-## Расширяемость
-
-Проект имеет модульную структуру, что позволяет легко:
-- Добавлять новые типы анализа
-- Расширять возможности визуализации
-- Интегрировать дополнительные математические функции
-- Добавлять новые форматы вывода
-
-## Автор
-
-Проект выполнен в рамках курса "Аналитическая геометрия" студентом Astana IT University.
+No Python installation required for end users. Just distribute the `.exe` file.
 
 ---
 
-*Для получения дополнительной информации см. файл `Midterm_Task.pdf` с описанием задания.*
+## How to Use
+
+### Step 1: Enter Number of Lines
+- Minimum: 2 lines
+- The program will analyze all possible pairs
+
+### Step 2: Enter Coefficients
+For each line, provide three coefficients `A`, `B`, `C` where:
+- **A** - coefficient of x
+- **B** - coefficient of y
+- **C** - constant term
+
+**Important:** At least one of A or B must be non-zero (otherwise it's not a valid line)!
+
+**Tip**: Use the **"Random"** button to auto-fill empty fields for quick testing!
+
+### Step 3: Analyze
+Click **"Analyze Lines"** to get:
+- Relationship type for each pair (intersect/parallel/coincide)
+- Detailed step-by-step mathematical solution
+- Intersection points (with coordinates)
+- Angles between lines (in degrees)
+
+### Step 4: Visualize (Optional)
+Click **"Visualize"** to see:
+- All lines plotted on a coordinate system
+- Intersection points marked in red
+- Automatic scaling and legend
+
+### Additional Actions
+- **" Clear"**: Reset all inputs and results
+- **" View Source Code"**: Access project information and source files
+
+---
+
+## Example Usage
+
+### Example 1: Three Intersecting Lines
+
+**Input:**
+```
+Number of lines: 3
+
+Line 1: A = 1,  B = 1,   C = -2    →  x + y - 2 = 0
+Line 2: A = 1,  B = -1,  C = 0     →  x - y = 0
+Line 3: A = 2,  B = -3,  C = 5     →  2x - 3y + 5 = 0
+```
+
+**Output:**
+```
+✓ Pair 1 (Line 1 & Line 2): INTERSECT at (1.00, 1.00), angle = 90.00°
+✓ Pair 2 (Line 1 & Line 3): INTERSECT at (-1.00, 3.00), angle = 33.69°
+✓ Pair 3 (Line 2 & Line 3): INTERSECT at (-5.00, -5.00), angle = 56.31°
+```
+
+### Example 2: Parallel Lines
+
+**Input:**
+```
+Number of lines: 2
+
+Line 1: A = 1,  B = 1,  C = -2    →  x + y = 2
+Line 2: A = 1,  B = 1,  C = -4    →  x + y = 4
+```
+
+**Output:**
+```
+║ Pair 1 (Line 1 & Line 2): PARALLEL (distinct lines, never intersect)
+```
+
+### Example 3: Coincident Lines
+
+**Input:**
+```
+Number of lines: 2
+
+Line 1: A = 2,  B = -3,  C = 5     →  2x - 3y + 5 = 0
+Line 2: A = 4,  B = -6,  C = 10    →  4x - 6y + 10 = 0
+```
+
+**Output:**
+```
+≡ Pair 1 (Line 1 & Line 2): COINCIDENT (same line)
+```
+
+---
+
+## Project Structure
+
+```
+Analytic-Geometry-Midterm/
+│
+├── main.py                  # Application entry point
+├── gui_app.py              # GUI interface (CustomTkinter)
+├── line_geometry.py        # Core mathematical engine
+├── test_line_geometry.py   # Unit tests (25 tests)
+│
+├── build_exe.py            # PyInstaller build script
+├── requirements.txt        # Python dependencies
+│
+├── README.md               # This file
+├── PROJECT_SUMMARY.md      # Detailed project report
+└── .gitignore             # Git ignore rules
+```
+
+---
+
+## Technology Stack
+
+| Component | Technology | Version |
+|-----------|-----------|---------|
+| **Language** | Python | 3.12+ |
+| **GUI Framework** | CustomTkinter | 5.2.0+ |
+| **Visualization** | Matplotlib | 3.7.0+ |
+| **Numerical Computing** | NumPy | 1.24.0+ |
+| **Image Processing** | Pillow | 10.0.0+ |
+| **Executable Builder** | PyInstaller | 6.0.0+ |
+| **Testing** | unittest | Built-in |
+
+---
+
+## Mathematical Algorithms
+
+### Relationship Detection
+Uses proportionality of coefficients:
+- **Coincident**: `A₁/A₂ = B₁/B₂ = C₁/C₂`
+- **Parallel**: `A₁/A₂ = B₁/B₂ ≠ C₁/C₂`
+- **Intersect**: `A₁/A₂ ≠ B₁/B₂`
+
+### Intersection Points
+Uses **Cramer's Rule** to solve the system:
+```
+A₁x + B₁y = -C₁
+A₂x + B₂y = -C₂
+
+x = Dₓ/D,  y = Dᵧ/D
+
+where:
+D  = A₁B₂ - A₂B₁
+Dₓ = (-C₁)B₂ - (-C₂)B₁
+Dᵧ = A₁(-C₂) - A₂(-C₁)
+```
+
+### 3. Angle Calculation
+For non-vertical lines with slopes m₁ and m₂:
+```
+tan(θ) = |m₂ - m₁| / |1 + m₁·m₂|
+
+where:
+m = -A/B (slope)
+θ ∈ [0°, 90°]
+```
+
+Special case: If `m₁·m₂ = -1`, lines are perpendicular (θ = 90°)
+
+---
+
+## Testing
+
+The project includes comprehensive unit tests covering all functionality:
+
+**Run tests:**
+```bash
+python test_line_geometry.py
+```
+
+**Test Coverage:**
+-  Line validation and creation
+-  Vertical and horizontal line detection
+-  Slope calculations
+-  Proportionality checking
+-  Relationship determination
+-  Intersection point accuracy
+-  Angle calculations (including edge cases)
+-  Task specification examples
+
+**Results:**
+```
+Ran 25 tests in 0.022s
+OK
+```
+
+---
+
+## Building for Distribution
+
+### Create Standalone Executable
+
+**1. Run the build script:**
+```bash
+python build_exe.py
+```
+
+**2. What happens:**
+-  Checks/installs PyInstaller
+-  Cleans old build files
+-  Compiles all dependencies into one `.exe`
+-  Creates user documentation
+
+**3. Output:**
+```
+dist/
+├── LineAnalyzer.exe    (~50-70 MB)
+└── README.txt          (User guide)
+```
+
+**4. Distribution:**
+- Share only the `dist/` folder
+- No Python installation needed on target machines
+- Works on Windows 7+
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: Application won't start
+- **Solution**: Make sure Python 3.12+ is installed
+- **Check**: `python --version`
+
+**Issue**: "Module not found" errors
+- **Solution**: Install dependencies: `pip install -r requirements.txt`
+
+**Issue**: .exe file won't run
+- **Solution**: Check antivirus settings (may block unsigned executables)
+- **Workaround**: Run as administrator or add to whitelist
+
+**Issue**: Graph not displaying
+- **Solution**: Ensure matplotlib is installed: `pip install matplotlib`
+
+**Issue**: Invalid line error
+- **Solution**: Make sure at least one of A or B is non-zero
+
+---
+
+## Author
+
+**Nurdaulet Sovetkhan**  
+Student, Astana IT University  
+Analytic Geometry Course | Midterm Project
+
+---
+
+## License
+
+This project is created for educational purposes as part of the Analytic Geometry course at Astana IT University.
+
+---
+
+## Acknowledgments
+
+- **Course**: Analytic Geometry
+- **Institution**: Astana IT University
+- **Date**: October 2025
+- **Frameworks**: CustomTkinter, Matplotlib, NumPy
+
+---
+
+<div align="center">
+
+**Made with ❤️ for Analytic Geometry**
+
+</div>

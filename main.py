@@ -1,150 +1,62 @@
 """
-Program for analyzing relationships between lines.
-Performs analytical geometry assignment.
+Line Analyzer - Main Entry Point
+================================
+Аналитическая геометрия: Анализ отношений между линиями
+
+Программа анализирует отношения между линиями в общем виде:
+    Ax + By + C = 0
+
+Для каждой пары линий определяет:
+    - Пересекаются ли они (и находит точку пересечения)
+    - Параллельны ли (но различны)
+    - Совпадают ли
+    - Если пересекаются - вычисляет угол между ними
+
+Author: Analytic Geometry Team
+Date: October 2025
 """
 
-try:
-    import matplotlib.pyplot as plt
-    MATPLOTLIB_AVAILABLE = True
-except ImportError:
-    MATPLOTLIB_AVAILABLE = False
-
-try:
-    import tkinter as tk
-    TKINTER_AVAILABLE = True
-except ImportError:
-    TKINTER_AVAILABLE = False
-
-from geometry_calc import input_lines, analyze_all_pairs
-if MATPLOTLIB_AVAILABLE:
-    from visualization import plot_lines
+import sys
+from gui_app import main as gui_main
 
 
-def run_console():
-    """
-    Runs the console version of the program.
-    """
-    print("=" * 60)
-    print("LINE RELATIONSHIP ANALYSIS (Console Mode)")
-    print("=" * 60)
+def print_banner():
+    """Выводит баннер приложения"""
+    banner = """
+    ╔══════════════════════════════════════════════════════════════╗
+    ║                                                              ║
+    ║              📐 LINE RELATIONSHIP ANALYZER 📐                ║
+    ║                                                              ║
+    ║                   Analytic Geometry Tool                     ║
+    ║                                                              ║
+    ║         Analyze relationships between lines in the plane     ║
+    ║                  Ax + By + C = 0                            ║
+    ║                                                              ║
+    ╚══════════════════════════════════════════════════════════════╝
     
-    # Input data and analyze
-    lines = input_lines()
-    results = analyze_all_pairs(lines)
+    Features:
+    ✓ Determine line relationships (intersect/parallel/coincident)
+    ✓ Calculate intersection points
+    ✓ Compute angles between lines
+    ✓ Visualize lines graphically
+    ✓ Modern GUI with CustomTkinter
     
-    # Offer to show plot if matplotlib is available
-    if MATPLOTLIB_AVAILABLE:
-        print("\\n" + "=" * 40)
-        try:
-            show_plot = input("Show graphical representation? (y/n): ").lower() == 'y'
-            if show_plot:
-                print("Building plot...")
-                plot_lines(lines, results)
-        except:
-            pass  # If user interrupted input
-    else:
-        print("\\nTo enable graphical representation, install matplotlib:")
-        print("pip install matplotlib")
-    
-    print("\\nAnalysis complete!")
-
-
-def run_gui():
+    Starting GUI application...
     """
-    Runs the GUI version of the program.
-    """
-    if not TKINTER_AVAILABLE:
-        print("Error: tkinter not available!")
-        print("Running console version...")
-        run_console()
-        return
-    
-    try:
-        from gui import LineAnalyzerGUI
-        root = tk.Tk()
-        app = LineAnalyzerGUI(root)
-        root.mainloop()
-    except Exception as e:
-        print(f"Error starting GUI: {e}")
-        print("Running console version...")
-        run_console()
-
-
-def run_example():
-    """
-    Runs the program with the example from the assignment.
-    """
-    print("=" * 60)
-    print("ASSIGNMENT EXAMPLE")
-    print("=" * 60)
-    print("Using data from example:")
-    print("3 lines:")
-    print("l1: 1x + 1y - 2 = 0")
-    print("l2: 1x - 1y + 0 = 0") 
-    print("l3: 2x - 3y + 5 = 0")
-    print()
-    
-    lines = [(1, 1, -2), (1, -1, 0), (2, -3, 5)]
-    results = analyze_all_pairs(lines)
-    
-    if MATPLOTLIB_AVAILABLE:
-        try:
-            show_plot = input("\\nShow plot? (y/n): ").lower() == 'y'
-            if show_plot:
-                plot_lines(lines, results)
-        except:
-            pass
-
-
-def main():
-    """
-    Main function - mode selection.
-    """
-    print("=" * 60)
-    print("LINE RELATIONSHIP ANALYSIS")
-    print("=" * 60)
-    print("Select working mode:")
-    print("1. GUI (graphical interface) - recommended")
-    print("2. Console mode")
-    print("3. Show assignment example")
-    print()
-    
-    if not TKINTER_AVAILABLE:
-        print("Note: GUI not available, tkinter not found")
-    if not MATPLOTLIB_AVAILABLE:
-        print("Note: Plots not available, matplotlib not found")
-    
-    try:
-        choice = input("Choose (1, 2, 3 or Enter for GUI): ").strip()
-        
-        if choice == "2":
-            run_console()
-        elif choice == "3":
-            run_example()
-        else:  # Default or "1"
-            run_gui()
-            
-    except KeyboardInterrupt:
-        print("\\nProgram interrupted.")
-    except Exception as e:
-        print(f"Error: {e}")
-        print("Running console version...")
-        run_console()
+    print(banner)
 
 
 if __name__ == "__main__":
-    # Can run regular program or example
-    print("1. Run program")
-    print("2. Show assignment example")
+    print_banner()
+    
     try:
-        choice = input("Choose (1 or 2, or just Enter for program): ").strip()
-        if choice == "2":
-            run_example()
-        else:
-            main()
+        # Запускаем GUI приложение
+        gui_main()
     except KeyboardInterrupt:
-        print("\\nProgram interrupted.")
+        print("\n\nApplication terminated by user.")
+        sys.exit(0)
     except Exception as e:
-        print(f"Error: {e}")
-        print("Running main program...")
-        main()
+        print(f"\n\nError: {e}")
+        print("\nPlease make sure all dependencies are installed:")
+        print("  pip install customtkinter matplotlib pillow")
+        sys.exit(1)
