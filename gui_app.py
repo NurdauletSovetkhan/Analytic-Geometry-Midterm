@@ -786,7 +786,6 @@ Link: github.com/NurdauletSovetkhan/Analytic-Geometry-Midterm
 
 • Total Lines of Code: ~2000+
 • Number of Functions: 30+
-• Unit Tests: 25 (100% passing)
 • Files: 7 main modules
 
 ═══════════════════════════════════════════════════════════
